@@ -3,9 +3,13 @@
     <div class="wrapper">
       <pizzas-sort />
       <h1 class="home__title">Все пиццы</h1>
-      <div class="home__pizzas">
+      <section class="home__pizzas">
         <pizza-card />
-      </div>
+        <pizza-card />
+        <pizza-card />
+        <pizza-card />
+        <pizza-card />
+      </section>
     </div>
   </main>
 </template>
@@ -20,7 +24,11 @@
   }
 
   &__pizzas {
-    margin-top: 35px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
   }
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="pizzas-sort">
+  <section class="pizzas-sort">
     <div class="pizzas-sort__types">
       <div class="pizzas-sort__type pizzas-sort__type_active">
         Все
@@ -36,7 +36,7 @@
       <span>Сортировка по:</span>
       <a href="#">популярности</a>
     </div>
-  </div>
+  </section>
 </template>
 
 <style lang="scss" scoped>

@@ -1,6 +1,10 @@
 <template>
   <div class="pizza-card">
-    <img src="@/assets/images/pizzas/1.png" alt="pizza" />
+    <img
+      class="pizza-card__img"
+      src="@/assets/images/pizzas/1.png"
+      alt="pizza"
+    />
     <h3 class="pizza-card__name">Чизбургер-пицца</h3>
     <div class="pizza-card__ui">
       <div class="pizza-card__types">
@@ -14,7 +18,7 @@
       </div>
     </div>
     <div class="pizza-card__price">
-      от 395 Р
+      от 395 ₽
     </div>
     <button class="pizza-card__add-btn">
       <svg
@@ -26,16 +30,23 @@
       >
         <path
           d="M10.8 4.8H7.2V1.2C7.2 0.5373 6.6627 0 6 0C5.3373 0 4.8 0.5373 4.8 1.2V4.8H1.2C0.5373 4.8 0 5.3373 0 6C0 6.6627 0.5373 7.2 1.2 7.2H4.8V10.8C4.8 11.4627 5.3373 12 6 12C6.6627 12 7.2 11.4627 7.2 10.8V7.2H10.8C11.4627 7.2 12 6.6627 12 6C12 5.3373 11.4627 4.8 10.8 4.8Z"
-          fill="#EB5A1E"
+          fill="white"
         />
       </svg>
       Добавить
+      <div v-if="quantity" class="pizza-card__quantity">12</div>
     </button>
   </div>
 </template>
 
 <script lang="ts">
-export default {};
+import Vue from "vue";
+
+export default Vue.extend({
+  data: () => ({
+    quantity: 0,
+  }),
+});
 </script>
 
 <style lang="scss" scoped>
@@ -48,6 +59,24 @@ export default {};
   // justify-content: center;
 
   max-width: 280px;
+
+  margin-top: 35px;
+  margin-right: 35px;
+
+  &__img {
+    position: relative;
+    bottom: 0;
+
+    cursor: pointer;
+
+    -webkit-transition: linear 0.1s;
+    -o-transition: linear 0.1s;
+    transition: linear 0.1s;
+
+    &:hover {
+      bottom: 3px;
+    }
+  }
 
   &__name {
     font-weight: 800;
@@ -93,9 +122,114 @@ export default {};
 
     background-color: #fff;
 
+    cursor: pointer;
+
     &:last-child {
       margin-right: 0;
     }
+  }
+
+  &__price {
+    font-weight: 700;
+    font-size: 22px;
+
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+
+    margin-top: 17px;
+  }
+
+  &__add-btn {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+
+    width: 100%;
+    height: 40px;
+
+    font-weight: 700;
+    font-size: 16px;
+
+    border: 1px solid #eb5a1e;
+    border-radius: 30px;
+
+    color: #eb5a1e;
+    background-color: #fff;
+
+    margin-top: 17px;
+    padding: 10px 15px;
+
+    cursor: pointer;
+
+    -webkit-transition: linear 0.3s;
+    -o-transition: linear 0.3s;
+    transition: linear 0.3s;
+
+    svg {
+      margin-right: 8px;
+    }
+
+    svg path {
+      fill: #eb5a1e;
+
+      -webkit-transition: linear 0.3s;
+      -o-transition: linear 0.3s;
+      transition: linear 0.3s;
+    }
+
+    &:hover {
+      color: #fff;
+      background-color: #eb5a1e;
+
+      svg path {
+        fill: #fff;
+      }
+
+      .pizza-card__quantity {
+        color: #eb5a1e;
+        background-color: #fff;
+      }
+    }
+  }
+
+  &__quantity {
+    font-weight: 700;
+    font-size: 16px;
+
+    height: 22px;
+
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+
+    -webkit-transition: linear 0.3s;
+    -o-transition: linear 0.3s;
+    transition: linear 0.3s;
+
+    padding: 0 8px;
+
+    color: #fff;
+    background-color: #eb5a1e;
+
+    border-radius: 12px;
+
+    margin-left: 8px;
   }
 }
 </style>
