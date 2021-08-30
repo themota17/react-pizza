@@ -2,24 +2,26 @@
   <div class="pizza-card">
     <img
       class="pizza-card__img"
-      src="@/assets/images/pizzas/1.png"
+      :src="require('@/assets/images/pizzas/' + pizza.img)"
       alt="pizza"
     />
-    <h3 class="pizza-card__name">Чизбургер-пицца</h3>
+    <h3 class="pizza-card__name">{{ pizza.name }}</h3>
     <div class="pizza-card__ui">
       <div class="pizza-card__types">
-        <div class="pizza-card__select-btn">тонкое</div>
+        <div class="pizza-card__select-btn pizza-card__select-btn_active">
+          тонкое
+        </div>
         <div class="pizza-card__select-btn">традиционное</div>
       </div>
       <div class="pizza-card__sizes">
-        <div class="pizza-card__select-btn">26 см.</div>
+        <div class="pizza-card__select-btn pizza-card__select-btn_active">
+          26 см.
+        </div>
         <div class="pizza-card__select-btn">30 см.</div>
         <div class="pizza-card__select-btn">40 см.</div>
       </div>
     </div>
-    <div class="pizza-card__price">
-      от 395 ₽
-    </div>
+    <div class="pizza-card__price">от {{ pizza.price }} ₽</div>
     <button class="pizza-card__add-btn">
       <svg
         width="12"
@@ -42,22 +44,27 @@
 <script lang="ts">
 import Vue from "vue";
 
+import IPizza from "@/interfaces/Pizza";
+
 export default Vue.extend({
+  props: {
+    id: Number,
+  },
   data: () => ({
     quantity: 0,
   }),
+  computed: {
+    pizza(): IPizza {
+      return this.$store.getters.getPizzas.find(
+        (pizza: IPizza) => pizza.id === this.id
+      );
+    },
+  },
 });
 </script>
 
 <style lang="scss" scoped>
 .pizza-card {
-  // display: -webkit-box;
-  // display: -ms-flexbox;
-  // display: flex;
-  // -webkit-box-pack: center;
-  // -ms-flex-pack: center;
-  // justify-content: center;
-
   max-width: 280px;
 
   margin-top: 35px;
@@ -120,12 +127,14 @@ export default Vue.extend({
 
     border-radius: 5px;
 
-    background-color: #fff;
-
     cursor: pointer;
 
     &:last-child {
       margin-right: 0;
+    }
+
+    &_active {
+      background-color: #fff;
     }
   }
 
@@ -160,6 +169,7 @@ export default Vue.extend({
     font-weight: 700;
     font-size: 16px;
 
+    outline: none;
     border: 1px solid #eb5a1e;
     border-radius: 30px;
 
