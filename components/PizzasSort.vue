@@ -34,10 +34,40 @@
         />
       </svg>
       <span>Сортировка по:</span>
-      <a href="#">популярности</a>
+      <a href="#" @click="openDrop">популярности</a>
+
+      <div
+        class="pizzas-sort__drop"
+        :class="{ 'pizzas-sort__drop_active': dropActive }"
+      >
+        <div class="pizzas-sort__drop-item pizzas-sort__drop-item_active">
+          популярности
+        </div>
+        <div class="pizzas-sort__drop-item">
+          цене
+        </div>
+        <div class="pizzas-sort__drop-item">
+          алфавиту
+        </div>
+      </div>
     </div>
   </section>
 </template>
+
+<script lang="ts">
+import Vue from "vue";
+
+export default Vue.extend({
+  data: () => ({
+    dropActive: false,
+  }),
+  methods: {
+    openDrop(): void {
+      this.dropActive = !this.dropActive;
+    },
+  },
+});
+</script>
 
 <style lang="scss" scoped>
 .pizzas-sort {
@@ -91,6 +121,8 @@
     -ms-flex-align: center;
     align-items: center;
 
+    position: relative;
+
     a {
       color: #fe5f1e;
 
@@ -103,6 +135,61 @@
 
     svg {
       margin-right: 10px;
+    }
+  }
+
+  &__drop {
+    position: absolute;
+    top: 40px;
+    right: 0;
+    z-index: 2;
+
+    background-color: #fff;
+
+    -webkit-box-shadow: 0px 4px 4px #b4b4b4;
+    box-shadow: 0px 4px 4px #b4b4b4;
+
+    border-radius: 10px;
+
+    -webkit-transition: linear 0.3s;
+    -o-transition: linear 0.3s;
+    transition: linear 0.3s;
+
+    -webkit-transform: scale(0);
+    -ms-transform: scale(0);
+    transform: scale(0);
+
+    &_active {
+      -webkit-transform: scale(1);
+      -ms-transform: scale(1);
+      transform: scale(1);
+    }
+
+    &-item {
+      width: 100%;
+      height: 40px;
+
+      padding: 0 22px;
+
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      -webkit-box-pack: center;
+      -ms-flex-pack: center;
+      justify-content: center;
+
+      font-weight: 400;
+      font-size: 14px;
+
+      cursor: pointer;
+
+      &_active {
+        color: #fe5f1e;
+        background-color: #fe5f1e0d;
+      }
     }
   }
 }
