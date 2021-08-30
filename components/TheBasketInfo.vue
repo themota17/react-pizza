@@ -1,9 +1,9 @@
 <template>
-  <div class="basket-info">
-    <div class="basket-info__money">
-      534 Р.
+  <div v-if="$route.path !== '/basket'" class="basket-info">
+    <div v-if="!basketEmpty" class="basket-info__money">
+      534 ₽
     </div>
-    <div class="basket-info__line"></div>
+    <div v-if="!basketEmpty" class="basket-info__line"></div>
     <div class="basket-info__basket">
       <svg
         width="18"
@@ -33,11 +33,23 @@
           stroke-linecap="round"
           stroke-linejoin="round"
         />
-        4
       </svg>
+      <span v-if="!basketEmpty" class="basket-info__quantity">
+        6
+      </span>
     </div>
   </div>
 </template>
+
+<script type="ts">
+import Vue from "vue";
+
+export default Vue.extend({
+  data: () => ({
+    basketEmpty: true,
+  })
+});
+</script>
 
 <style lang="scss" scoped>
 .basket-info {
@@ -45,6 +57,7 @@
 
   border-radius: 30px;
 
+  color: #fff;
   background-color: #fe5f1e;
 
   display: -webkit-box;
@@ -56,11 +69,45 @@
 
   cursor: pointer;
 
-  &__line {
-    width: 2px;
-    min-height: 100%;
+  font-weight: bold;
+  font-size: 16px;
 
-    background-color: #fff;
+  &__line {
+    width: 1px;
+    min-height: 25px;
+
+    margin-left: 13px;
+    margin-right: 13px;
+
+    border-radius: 100%;
+
+    background-color: #ffffff66;
+  }
+
+  &__money {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+  }
+
+  &__basket {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+
+    svg {
+      width: 16px;
+    }
+  }
+
+  &__quantity {
+    margin-left: 13px;
   }
 }
 </style>

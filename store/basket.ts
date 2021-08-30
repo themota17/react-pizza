@@ -2,7 +2,7 @@ import { GetterTree, ActionTree, MutationTree } from "vuex";
 import { RootState } from "@/store";
 
 export const state = () => ({
-  pizzas: [],
+  basket: [],
 });
 
 export type AnotherModuleState = ReturnType<typeof state>;

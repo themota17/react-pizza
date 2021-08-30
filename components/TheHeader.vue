@@ -24,7 +24,9 @@
 
 <style lang="scss" scoped>
 .header {
-  margin-top: 50px;
+  padding: 35px 0px;
+
+  border-bottom: 1px solid #f1f1f1;
 
   &__inner {
     display: -webkit-box;
