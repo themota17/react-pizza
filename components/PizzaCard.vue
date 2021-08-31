@@ -11,7 +11,9 @@
         <div
           v-for="(key, idx) of Object.keys(pizza.types)"
           :key="idx"
-          class="pizza-card__select-btn pizza-card__select-btn_active"
+          @click="changeType(key)"
+          class="pizza-card__select-btn"
+          :class="{ 'pizza-card__select-btn_active': key === selectedType }"
         >
           {{ pizzaTypes[key] }}
         </div>
@@ -20,7 +22,9 @@
         <div
           v-for="(key, idx) of Object.keys(pizza.sizes)"
           :key="idx"
-          class="pizza-card__select-btn pizza-card__select-btn_active"
+          @click="changeSize(key)"
+          class="pizza-card__select-btn"
+          :class="{ 'pizza-card__select-btn_active': key === selectedSize }"
         >
           {{ key }} см.
         </div>
@@ -56,13 +60,25 @@ export default Vue.extend({
   props: {
     id: Number,
   },
-  data: () => {
-    const pizzaTypes: IPizzaTypesName = {
+  data: () => ({
+    pizzaTypes: {
       thin: "тонкий",
       traditional: "традиционный",
-    };
-
-    return { pizzaTypes };
+    } as IPizzaTypesName,
+    selectedType: "" as string,
+    selectedSize: "" as string,
+  }),
+  mounted(): void {
+    this.selectedType = Object.keys(this.pizza.types)[0];
+    this.selectedSize = Object.keys(this.pizza.sizes)[0];
+  },
+  methods: {
+    changeType(type: string): void {
+      this.selectedType = type;
+    },
+    changeSize(size: string): void {
+      this.selectedSize = size;
+    },
   },
   computed: {
     pizza(): IPizza {
@@ -139,6 +155,10 @@ export default Vue.extend({
     border-radius: 5px;
 
     cursor: pointer;
+
+    -webkit-transition: linear 0.2s;
+    -o-transition: linear 0.2s;
+    transition: linear 0.2s;
 
     &:last-child {
       margin-right: 0;

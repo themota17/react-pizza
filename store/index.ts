@@ -2,9 +2,11 @@ import { GetterTree, ActionTree, MutationTree } from "vuex";
 
 import IPizza from "@/interfaces/Pizza";
 
-export const state = () => ({
-  pizzas: [] as Array<IPizza>,
-});
+export const state = () => {
+  const pizzas: Array<IPizza> = [];
+
+  return { pizzas };
+};
 
 export type RootState = ReturnType<typeof state>;
 
