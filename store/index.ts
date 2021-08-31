@@ -18,10 +18,38 @@ export const actions: ActionTree<RootState, RootState> = {
   fetchPizzas({ commit }): void {
     setTimeout(() => {
       commit("setPizzas", [
-        { id: 1, name: "Чизбургер-пицца", img: "1.png", price: 395 },
-        { id: 2, name: "Сырная", img: "2.png", price: 450 },
-        { id: 3, name: "Креветки по азатски", img: "3.png", price: 290 },
-        { id: 4, name: "Сырный цыпленок", img: "4.png", price: 385 },
+        {
+          id: 1,
+          name: "Чизбургер-пицца",
+          img: "1.png",
+          price: 395,
+          types: { thin: 40, traditional: 60 },
+          sizes: { 26: 40, 30: 55, 40: 62 },
+        },
+        {
+          id: 2,
+          name: "Сырная",
+          img: "2.png",
+          price: 450,
+          types: { thin: 40, traditional: 60 },
+          sizes: { 26: 40, 30: 55, 40: 62 },
+        },
+        {
+          id: 3,
+          name: "Креветки по азатски",
+          img: "3.png",
+          price: 290,
+          types: { thin: 40, traditional: 60 },
+          sizes: { 26: 40, 30: 55, 40: 62 },
+        },
+        {
+          id: 4,
+          name: "Сырный цыпленок",
+          img: "4.png",
+          price: 385,
+          types: { thin: 40, traditional: 60 },
+          sizes: { 26: 40, 30: 55, 40: 62 },
+        },
       ]);
     }, 1200);
   },
