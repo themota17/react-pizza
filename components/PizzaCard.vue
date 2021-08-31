@@ -8,17 +8,22 @@
     <h3 class="pizza-card__name">{{ pizza.name }}</h3>
     <div class="pizza-card__ui">
       <div class="pizza-card__types">
-        <div class="pizza-card__select-btn pizza-card__select-btn_active">
-          тонкое
+        <div
+          v-for="(key, idx) of Object.keys(pizza.types)"
+          :key="idx"
+          class="pizza-card__select-btn pizza-card__select-btn_active"
+        >
+          {{ pizzaTypes[key] }}
         </div>
-        <div class="pizza-card__select-btn">традиционное</div>
       </div>
       <div class="pizza-card__sizes">
-        <div class="pizza-card__select-btn pizza-card__select-btn_active">
-          26 см.
+        <div
+          v-for="(key, idx) of Object.keys(pizza.sizes)"
+          :key="idx"
+          class="pizza-card__select-btn pizza-card__select-btn_active"
+        >
+          {{ key }} см.
         </div>
-        <div class="pizza-card__select-btn">30 см.</div>
-        <div class="pizza-card__select-btn">40 см.</div>
       </div>
     </div>
     <div class="pizza-card__price">от {{ pizza.price }} ₽</div>
@@ -45,14 +50,20 @@
 import Vue from "vue";
 
 import IPizza from "@/interfaces/Pizza";
+import IPizzaTypesName from "@/interfaces/PizzaTypesName";
 
 export default Vue.extend({
   props: {
     id: Number,
   },
-  data: () => ({
-    quantity: 0,
-  }),
+  data: () => {
+    const pizzaTypes: IPizzaTypesName = {
+      thin: "тонкий",
+      traditional: "традиционный",
+    };
+
+    return { pizzaTypes };
+  },
   computed: {
     pizza(): IPizza {
       return this.$store.getters.getPizzas.find(
