@@ -4,7 +4,11 @@
       <pizzas-sort :pizza-types="pizzaTypes" />
       <h1 class="home__title">Все пиццы</h1>
       <section class="home__pizzas">
-        <pizza-card v-for="pizza of pizzas" :key="pizza.id" :id="pizza.id" />
+        <pizza-card
+          v-for="pizza of sortedPizzas"
+          :key="pizza.id"
+          :id="pizza.id"
+        />
       </section>
     </div>
   </main>
@@ -17,7 +21,6 @@ import IPizza from "@/interfaces/Pizza";
 
 export default Vue.extend({
   data: () => ({
-    selectedType: "" as string,
     pizzaTypes: [
       { name: "Все", value: "all" },
       { name: "Мясные", value: "meet" },
@@ -29,17 +32,19 @@ export default Vue.extend({
   }),
   mounted(): void {
     this.$store.dispatch("fetchPizzas");
-
-    this.selectedType = this.pizzaTypes[0].value;
-  },
-  methods: {
-    changeSelectedType(e: Event, type: string) {
-      this.selectedType = type;
-    },
   },
   computed: {
     pizzas(): Array<IPizza> {
       return this.$store.getters.getPizzas;
+    },
+    sortedPizzas(): Array<IPizza> {
+      const selectedType = this.$store.getters.getSelectedType;
+
+      if (selectedType === "all") return this.pizzas;
+
+      return this.pizzas.filter((pizza: IPizza) =>
+        pizza.types.some((type) => type === selectedType)
+      );
     },
   },
 });
