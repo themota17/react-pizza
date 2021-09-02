@@ -31,14 +31,17 @@
         class="pizzas-sort__drop"
         :class="{ 'pizzas-sort__drop_active': dropActive }"
       >
-        <div class="pizzas-sort__drop-item pizzas-sort__drop-item_active">
-          популярности
-        </div>
-        <div class="pizzas-sort__drop-item">
-          цене
-        </div>
-        <div class="pizzas-sort__drop-item">
-          алфавиту
+        <div
+          v-for="(sortType, idx) of pizzaSortTypes"
+          :key="idx"
+          @click="changeSelectedSortType(sortType.value)"
+          class="pizzas-sort__drop-item"
+          :class="{
+            'pizzas-sort__drop-item_active':
+              sortType.value === selectedSortType,
+          }"
+        >
+          {{ sortType.name }}
         </div>
       </div>
     </div>
@@ -51,6 +54,7 @@ import Vue from "vue";
 export default Vue.extend({
   props: {
     pizzaTypes: Array,
+    pizzaSortTypes: Array,
   },
   data: () => ({
     dropActive: false,
@@ -59,6 +63,9 @@ export default Vue.extend({
     changeSelectedType(type: string): void {
       this.$store.commit("changeSelectedType", type);
     },
+    changeSelectedSortType(sortType: string): void {
+      this.$store.commit("changeSelectedSortType", sortType);
+    },
     openDrop(): void {
       this.dropActive = !this.dropActive;
     },
@@ -66,6 +73,9 @@ export default Vue.extend({
   computed: {
     selectedType(): string {
       return this.$store.getters.getSelectedType;
+    },
+    selectedSortType(): string {
+      return this.$store.getters.getSelectedSortType;
     },
   },
 });

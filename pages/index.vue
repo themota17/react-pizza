@@ -1,7 +1,10 @@
 <template>
   <main class="home">
     <div class="wrapper">
-      <pizzas-sort :pizza-types="pizzaTypes" />
+      <pizzas-sort
+        :pizza-types="pizzaTypes"
+        :pizza-sort-types="pizzaSortTypes"
+      />
       <h1 class="home__title">Все пиццы</h1>
       <section class="home__pizzas">
         <pizza-card
@@ -29,6 +32,11 @@ export default Vue.extend({
       { name: "Острые", value: "sharp" },
       { name: "Закрытые", value: "closed" },
     ],
+    pizzaSortTypes: [
+      { name: "популярности", value: "popularity" },
+      { name: "цене", value: "price" },
+      { name: "алфавиту", value: "alphabet" },
+    ],
   }),
   mounted(): void {
     this.$store.dispatch("fetchPizzas");
@@ -38,13 +46,28 @@ export default Vue.extend({
       return this.$store.getters.getPizzas;
     },
     sortedPizzas(): Array<IPizza> {
+      const pizzas = [...this.pizzas];
       const selectedType = this.$store.getters.getSelectedType;
+      const selectedSortType = this.$store.getters.getSelectedSortType;
 
-      if (selectedType === "all") return this.pizzas;
+      const sort = (a: IPizza, b: IPizza): any => {
+        switch (selectedSortType) {
+          case "popularity":
+            return b.popularity - a.popularity;
+          case "price":
+            return b.price - a.price;
+          case "alphabet":
+            if (b.name > a.name) return -1;
+        }
+      };
 
-      return this.pizzas.filter((pizza: IPizza) =>
-        pizza.types.some((type) => type === selectedType)
-      );
+      if (selectedType === "all") return pizzas.sort(sort);
+
+      return pizzas
+        .filter((pizza: IPizza) =>
+          pizza.types.some((type) => type === selectedType)
+        )
+        .sort(sort);
     },
   },
 });

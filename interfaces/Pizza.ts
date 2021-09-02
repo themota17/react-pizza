@@ -6,6 +6,7 @@ export default interface IPizza {
   name: string;
   img: string;
   price: number;
+  popularity: number;
 
   thickness: IPizzaThickness;
   sizes: IPizzaSizes;
