@@ -30,7 +30,7 @@
         </div>
       </div>
     </div>
-    <div class="pizza-card__price">от {{ pizza.price }} ₽</div>
+    <div class="pizza-card__price">от {{ price }} ₽</div>
     <button class="pizza-card__add-btn">
       <svg
         width="12"
@@ -84,6 +84,15 @@ export default Vue.extend({
     pizza(): IPizza {
       return this.$store.getters.getPizzas.find(
         (pizza: IPizza) => pizza.id === this.id
+      );
+    },
+    price(): number {
+      const pizza = this.pizza;
+
+      return (
+        pizza.price +
+        pizza.types[this.selectedType] +
+        pizza.sizes[this.selectedSize]
       );
     },
   },
