@@ -1,23 +1,14 @@
 <template>
   <section class="pizzas-sort">
     <div class="pizzas-sort__types">
-      <div class="pizzas-sort__type pizzas-sort__type_active">
-        Все
-      </div>
-      <div class="pizzas-sort__type">
-        Мясные
-      </div>
-      <div class="pizzas-sort__type">
-        Вегетарианские
-      </div>
-      <div class="pizzas-sort__type">
-        Гриль
-      </div>
-      <div class="pizzas-sort__type">
-        Острые
-      </div>
-      <div class="pizzas-sort__type">
-        Закрытые
+      <div
+        v-for="(type, idx) of pizzaTypes"
+        :key="idx"
+        @click="changeSelectedType(type.value)"
+        class="pizzas-sort__type"
+        :class="{ 'pizzas-sort__type_active': type.value === selectedType }"
+      >
+        {{ type.name }}
       </div>
     </div>
     <div class="pizzas-sort__other">
@@ -58,12 +49,23 @@
 import Vue from "vue";
 
 export default Vue.extend({
+  props: {
+    pizzaTypes: Array,
+  },
   data: () => ({
     dropActive: false,
   }),
   methods: {
+    changeSelectedType(type: string): void {
+      this.$store.commit("changeSelectedType", type);
+    },
     openDrop(): void {
       this.dropActive = !this.dropActive;
+    },
+  },
+  computed: {
+    selectedType(): string {
+      return this.$store.getters.getSelectedType;
     },
   },
 });

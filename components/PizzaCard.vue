@@ -9,13 +9,15 @@
     <div class="pizza-card__ui">
       <div class="pizza-card__types">
         <div
-          v-for="(key, idx) of Object.keys(pizza.types)"
+          v-for="(key, idx) of Object.keys(pizza.thickness)"
           :key="idx"
-          @click="changeType(key)"
+          @click="changeTickness(key)"
           class="pizza-card__select-btn"
-          :class="{ 'pizza-card__select-btn_active': key === selectedType }"
+          :class="{
+            'pizza-card__select-btn_active': key === selectedThickness,
+          }"
         >
-          {{ pizzaTypes[key] }}
+          {{ pizzaThickness[key] }}
         </div>
       </div>
       <div class="pizza-card__sizes">
@@ -45,7 +47,7 @@
         />
       </svg>
       Добавить
-      <div v-if="quantity" class="pizza-card__quantity">12</div>
+      <div v-if="false" class="pizza-card__quantity">12</div>
     </button>
   </div>
 </template>
@@ -61,21 +63,21 @@ export default Vue.extend({
     id: Number,
   },
   data: () => ({
-    pizzaTypes: {
+    pizzaThickness: {
       thin: "тонкий",
       traditional: "традиционный",
     } as IPizzaTypesName,
-    selectedType: "" as string,
+    selectedThickness: "" as string,
     selectedSize: "" as string,
   }),
   mounted(): void {
     // defaut selected from ui
-    this.selectedType = Object.keys(this.pizza.types)[0];
+    this.selectedThickness = Object.keys(this.pizza.thickness)[0];
     this.selectedSize = Object.keys(this.pizza.sizes)[0];
   },
   methods: {
-    changeType(type: string): void {
-      this.selectedType = type;
+    changeTickness(thickness: string): void {
+      this.selectedThickness = thickness;
     },
     changeSize(size: string): void {
       this.selectedSize = size;
@@ -92,7 +94,7 @@ export default Vue.extend({
 
       return (
         pizza.price +
-        pizza.types[this.selectedType] +
+        pizza.thickness[this.selectedThickness] +
         pizza.sizes[this.selectedSize]
       );
     },

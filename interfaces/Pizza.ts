@@ -1,4 +1,4 @@
-import IPizzaTypes from "./PizzaTypes";
+import IPizzaThickness from "./PizzaThickness";
 import IPizzaSizes from "./PizzaSizes";
 
 export default interface IPizza {
@@ -7,6 +7,7 @@ export default interface IPizza {
   img: string;
   price: number;
 
-  types: IPizzaTypes;
+  thickness: IPizzaThickness;
   sizes: IPizzaSizes;
+  types: Array<string>;
 }
