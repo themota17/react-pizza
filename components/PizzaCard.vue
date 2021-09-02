@@ -69,6 +69,7 @@ export default Vue.extend({
     selectedSize: "" as string,
   }),
   mounted(): void {
+    // defaut selected from ui
     this.selectedType = Object.keys(this.pizza.types)[0];
     this.selectedSize = Object.keys(this.pizza.sizes)[0];
   },
