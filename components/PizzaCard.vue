@@ -56,6 +56,8 @@
 import Vue from "vue";
 
 import IPizza from "@/interfaces/Pizza";
+import IPizzaThickness from "@/interfaces/PizzaThickness";
+import IPizzaSizes from "@/interfaces/PizzaSizes";
 import IPizzaTypesName from "@/interfaces/PizzaTypesName";
 
 export default Vue.extend({
@@ -67,19 +69,19 @@ export default Vue.extend({
       thin: "тонкий",
       traditional: "традиционный",
     } as IPizzaTypesName,
-    selectedThickness: "" as string,
-    selectedSize: "" as string,
+    selectedThickness: "" as keyof IPizzaThickness,
+    selectedSize: 0 as keyof IPizzaSizes,
   }),
   mounted(): void {
     // defaut selected from ui
-    this.selectedThickness = Object.keys(this.pizza.thickness)[0];
-    this.selectedSize = Object.keys(this.pizza.sizes)[0];
+    this.selectedThickness = "thin";
+    this.selectedSize = 26;
   },
   methods: {
-    changeTickness(thickness: string): void {
+    changeTickness(thickness: keyof IPizzaThickness): void {
       this.selectedThickness = thickness;
     },
-    changeSize(size: string): void {
+    changeSize(size: keyof IPizzaSizes): void {
       this.selectedSize = size;
     },
   },
