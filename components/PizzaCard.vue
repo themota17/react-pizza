@@ -24,9 +24,11 @@
         <div
           v-for="(key, idx) of Object.keys(pizza.sizes)"
           :key="idx"
-          @click="changeSize(key)"
+          @click="changeSize(Number(key))"
           class="pizza-card__select-btn"
-          :class="{ 'pizza-card__select-btn_active': key === selectedSize }"
+          :class="{
+            'pizza-card__select-btn_active': Number(key) === selectedSize,
+          }"
         >
           {{ key }} см.
         </div>

@@ -21,6 +21,7 @@
 import Vue from "vue";
 
 import IPizza from "@/interfaces/Pizza";
+import IPizzaSortType from "@/interfaces/PizzaSortType";
 
 export default Vue.extend({
   data: () => ({
@@ -31,12 +32,12 @@ export default Vue.extend({
       { name: "Гриль", value: "grill" },
       { name: "Острые", value: "sharp" },
       { name: "Закрытые", value: "closed" },
-    ],
+    ] as Array<IPizzaSortType>,
     pizzaSortTypes: [
       { name: "популярности", value: "popularity" },
       { name: "цене", value: "price" },
       { name: "алфавиту", value: "alphabet" },
-    ],
+    ] as Array<IPizzaSortType>,
   }),
   mounted(): void {
     this.$store.dispatch("fetchPizzas");

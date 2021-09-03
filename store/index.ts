@@ -30,7 +30,7 @@ export const actions: ActionTree<RootState, RootState> = {
       commit("setPizzas", [
         {
           id: 1,
-          name: "Аизбургер-пицца",
+          name: "Чизбургер-пицца",
           img: "1.png",
           price: 395,
           popularity: 1,
@@ -40,7 +40,7 @@ export const actions: ActionTree<RootState, RootState> = {
         },
         {
           id: 2,
-          name: "Бырная",
+          name: "Сырная",
           img: "2.png",
           price: 450,
           popularity: 4,
@@ -50,7 +50,7 @@ export const actions: ActionTree<RootState, RootState> = {
         },
         {
           id: 3,
-          name: "Вреветки по азатски",
+          name: "Креветки по азатски",
           img: "3.png",
           price: 290,
           popularity: 6,
@@ -60,7 +60,7 @@ export const actions: ActionTree<RootState, RootState> = {
         },
         {
           id: 4,
-          name: "Гырный цыпленок",
+          name: "Сырный цыпленок",
           img: "4.png",
           price: 385,
           popularity: 2,

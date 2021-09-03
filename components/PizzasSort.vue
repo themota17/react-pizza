@@ -25,7 +25,9 @@
         />
       </svg>
       <span>Сортировка по:</span>
-      <a href="#" @click="openDrop">популярности</a>
+      <a href="#" @click="openDrop">{{
+        pizzaSortTypes[selectedSortType].name
+      }}</a>
 
       <div
         class="pizzas-sort__drop"
@@ -49,12 +51,17 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
+import Vue, { PropType, PropOptions } from "vue";
+
+import IPizzaSortType from "@/interfaces/PizzaSortType";
 
 export default Vue.extend({
   props: {
     pizzaTypes: Array,
-    pizzaSortTypes: Array,
+    pizzaSortTypes: <PropOptions<IPizzaSortType[]>>{
+      required: true,
+      type: Array,
+    },
   },
   data: () => ({
     dropActive: false,
@@ -76,6 +83,13 @@ export default Vue.extend({
     },
     selectedSortType(): string {
       return this.$store.getters.getSelectedSortType;
+    },
+    selectedSortTypeName(): string {
+      const name = this.pizzaSortTypes.find(
+        (type: IPizzaSortType) => type.value === this.selectedSortType
+      )?.name;
+
+      return name || "";
     },
   },
 });
