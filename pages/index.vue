@@ -51,7 +51,13 @@ export default Vue.extend({
       const selectedType = this.$store.getters.getSelectedType;
       const selectedSortType = this.$store.getters.getSelectedSortType;
 
-      const sort = (a: IPizza, b: IPizza): any => {
+      if (selectedType !== "all") {
+        pizzas.filter((pizza: IPizza) =>
+          pizza.types.some((type) => type === selectedType)
+        );
+      }
+
+      return pizzas.sort((a: IPizza, b: IPizza): any => {
         switch (selectedSortType) {
           case "popularity":
             return b.popularity - a.popularity;
@@ -60,15 +66,7 @@ export default Vue.extend({
           case "alphabet":
             if (b.name > a.name) return -1;
         }
-      };
-
-      if (selectedType === "all") return pizzas.sort(sort);
-
-      return pizzas
-        .filter((pizza: IPizza) =>
-          pizza.types.some((type) => type === selectedType)
-        )
-        .sort(sort);
+      });
     },
   },
 });
