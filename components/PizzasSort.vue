@@ -25,10 +25,7 @@
         />
       </svg>
       <span>Сортировка по:</span>
-      <a href="#" @click="openDrop">{{
-        pizzaSortTypes[selectedSortType].name
-      }}</a>
-
+      <a href="#" @click="openDrop">{{ selectedSortTypeName }}</a>
       <div
         class="pizzas-sort__drop"
         :class="{ 'pizzas-sort__drop_active': dropActive }"
@@ -51,7 +48,7 @@
 </template>
 
 <script lang="ts">
-import Vue, { PropType, PropOptions } from "vue";
+import Vue, { PropOptions } from "vue";
 
 import IPizzaSortType from "@/interfaces/PizzaSortType";
 
@@ -60,7 +57,6 @@ export default Vue.extend({
     pizzaTypes: Array,
     pizzaSortTypes: <PropOptions<IPizzaSortType[]>>{
       required: true,
-      type: Array,
     },
   },
   data: () => ({
