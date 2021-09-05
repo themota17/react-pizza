@@ -74,7 +74,7 @@ export const actions: ActionTree<RootState, RootState> = {
 };
 
 export const getters: GetterTree<RootState, RootState> = {
-  getSelectedType: ({ selectedType }) => selectedType,
-  getSelectedSortType: ({ selectedSortType }) => selectedSortType,
-  getPizzas: ({ pizzas }) => pizzas,
+  getSelectedType: ({ selectedType }): string => selectedType,
+  getSelectedSortType: ({ selectedSortType }): string => selectedSortType,
+  getPizzas: ({ pizzas }): Array<IPizza> => pizzas,
 };
