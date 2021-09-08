@@ -1,4 +1,4 @@
-import { GetterTree, ActionTree, MutationTree } from "vuex";
+import { GetterTree, MutationTree } from "vuex";
 import { RootState } from "@/store";
 
 import IPizza from "@/interfaces/Pizza";

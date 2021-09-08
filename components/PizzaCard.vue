@@ -35,7 +35,7 @@
       </div>
     </div>
     <div class="pizza-card__price">от {{ price }} ₽</div>
-    <button class="pizza-card__add-btn">
+    <button class="pizza-card__add-btn" @click="addPizzaToBasket">
       <svg
         width="12"
         height="12"
@@ -49,7 +49,9 @@
         />
       </svg>
       Добавить
-      <div v-if="false" class="pizza-card__quantity">12</div>
+      <div v-if="quantityInBasket" class="pizza-card__quantity">
+        {{ quantityInBasket }}
+      </div>
     </button>
   </div>
 </template>
@@ -86,6 +88,9 @@ export default Vue.extend({
     changeSize(size: keyof IPizzaSizes): void {
       this.selectedSize = size;
     },
+    addPizzaToBasket(e: Event): void {
+      this.$store.commit("basket/addPizza", { ...this.pizza });
+    },
   },
   computed: {
     pizza(): IPizza {
@@ -101,6 +106,17 @@ export default Vue.extend({
         pizza.thickness[this.selectedThickness] +
         pizza.sizes[this.selectedSize]
       );
+    },
+    quantityInBasket(): number {
+      const quantity: number = this.$store.getters["basket/getBasket"].reduce(
+        (acc: number, curr: IPizza): number | void => {
+          if (curr.id === this.id) return acc + 1;
+          else return 0;
+        },
+        0
+      );
+
+      return quantity;
     },
   },
 });
