@@ -47,12 +47,12 @@ export default Vue.extend({
       return this.$store.getters.getPizzas;
     },
     sortedPizzas(): Array<IPizza> {
-      const pizzas = [...this.pizzas];
+      let pizzas = [...this.pizzas];
       const selectedType = this.$store.getters.getSelectedType;
       const selectedSortType = this.$store.getters.getSelectedSortType;
 
       if (selectedType !== "all") {
-        pizzas.filter((pizza: IPizza) =>
+        pizzas = pizzas.filter((pizza: IPizza) =>
           pizza.types.some((type) => type === selectedType)
         );
       }

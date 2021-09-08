@@ -109,9 +109,10 @@ export default Vue.extend({
     },
     quantityInBasket(): number {
       const quantity: number = this.$store.getters["basket/getBasket"].reduce(
-        (acc: number, curr: IPizza): number | void => {
+        (acc: number, curr: IPizza): number => {
           if (curr.id === this.id) return acc + 1;
-          else return 0;
+
+          return acc;
         },
         0
       );
