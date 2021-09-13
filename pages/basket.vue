@@ -75,7 +75,12 @@
             Очистить корзину
           </button>
         </header>
-        <div class="basket-info__items-list"></div>
+        <div class="basket-info__items-list">
+          <basket-pizza-item />
+          <basket-pizza-item />
+          <basket-pizza-item />
+          <basket-pizza-item />
+        </div>
         <div class="basket-info__data">
           <div class="basket-info__quantity">
             Всего пицц: <span class="basket-info__quantity-span">3 шт.</span>
@@ -84,6 +89,27 @@
             Сумма заказа: <span class="basket-info__amount-span">900 ₽</span>
           </div>
         </div>
+        <div class="basket-info__moves">
+          <a class="basket-info__back" href="/">
+            <svg
+              width="8"
+              height="14"
+              viewBox="0 0 8 14"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M7 13L1 6.93015L6.86175 1"
+                stroke="#D3D3D3"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            Вернуться назад
+          </a>
+          <button class="basket-info__pay">Оплатить сейчас</button>
+        </div>
       </section>
       <the-empty-basket v-if="false" />
     </div>
@@ -91,6 +117,10 @@
 </template>
 
 <style lang="scss" scoped>
+.basket {
+  padding: 1em;
+}
+
 .basket-info {
   max-width: 820px;
 
@@ -106,6 +136,8 @@
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
+
+    padding: 0 0 30px 0;
   }
 
   &__title {
@@ -159,6 +191,8 @@
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
+
+    margin-top: 10px;
   }
 
   &__quantity {
@@ -179,6 +213,77 @@
 
       font-weight: 700;
     }
+  }
+
+  &__moves {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+  }
+
+  &__back {
+    color: #cacaca;
+    background: none;
+
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+
+    text-decoration: none;
+
+    border-radius: 30px;
+    border: 1px solid #cacaca;
+
+    font-weight: 400;
+    font-size: 16px;
+
+    margin-top: 75px;
+    padding: 16px 32px;
+
+    svg {
+      margin-right: 6px;
+    }
+  }
+
+  &__pay {
+    color: #fff;
+    background-color: #fe5f1e;
+
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+
+    text-decoration: none;
+
+    border-radius: 30px;
+    border: none;
+    outline: none;
+
+    font-weight: 700;
+    font-size: 16px;
+
+    cursor: pointer;
+
+    margin-top: 75px;
+    padding: 16px 32px;
   }
 }
 </style>
