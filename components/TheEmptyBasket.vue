@@ -10,7 +10,7 @@
       src="@/assets/images/empty-basket.png"
       alt="empty-basket"
     />
-    <a class="empty-basket__btn" href="#">
+    <a class="empty-basket__btn" href="/">
       Вернуться назад
     </a>
   </section>
@@ -18,7 +18,7 @@
 
 <style lang="scss" scoped>
 .empty-basket {
-  min-height: 100%;
+  margin-top: 160px;
 
   display: -ms-flexbox;
   display: flex;
@@ -58,6 +58,9 @@
     text-decoration: none;
 
     border-radius: 30px;
+
+    font-weight: 700;
+    font-size: 16px;
 
     margin-top: 75px;
     padding: 13px 26px;
