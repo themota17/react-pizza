@@ -1,10 +1,12 @@
 <template>
-  <nuxt-link v-if="$route.path !== '/basket'" to="/basket">
+  <nuxt-link
+    v-if="$route.path !== '/basket'"
+    class="basket-info__link"
+    to="/basket"
+  >
     <div class="basket-info">
-      <div v-if="!basketEmpty" class="basket-info__money">
-        534 ₽
-      </div>
-      <div v-if="!basketEmpty" class="basket-info__line"></div>
+      <div v-if="basket.length" class="basket-info__money">{{ amount }} ₽</div>
+      <div v-if="basket.length" class="basket-info__line"></div>
       <div class="basket-info__basket">
         <svg
           width="18"
@@ -35,21 +37,43 @@
             stroke-linejoin="round"
           />
         </svg>
-        <span v-if="!basketEmpty" class="basket-info__quantity">
-          6
+        <span v-if="basket.length" class="basket-info__quantity">
+          {{ basket.length }}
         </span>
       </div>
     </div>
   </nuxt-link>
 </template>
 
-<script type="ts">
+<script lang="ts">
 import Vue from "vue";
+
+import IPizza from "@/interfaces/Pizza";
+import IBasketPizza from "@/interfaces/BasketPizza";
 
 export default Vue.extend({
   data: () => ({
     basketEmpty: true,
-  })
+  }),
+  computed: {
+    basket(): Array<IBasketPizza> {
+      return this.$store.getters["basket/getBasket"];
+    },
+    amount(): number {
+      return this.basket.reduce((acc: number, curr: IBasketPizza) => {
+        const pizza: IPizza = this.$store.getters.getPizzas.find(
+          (pizza: IPizza) => pizza.id === curr.id
+        );
+
+        return (
+          acc +
+          pizza.price +
+          pizza.thickness[curr.thickness] +
+          pizza.sizes[curr.size]
+        );
+      }, 0);
+    },
+  },
 });
 </script>
 
@@ -73,6 +97,10 @@ export default Vue.extend({
 
   font-weight: bold;
   font-size: 16px;
+
+  &__link {
+    text-decoration: none;
+  }
 
   &__line {
     width: 1px;

@@ -19,23 +19,25 @@
         </div>
       </div>
       <div class="basket-pizza-item__price">{{ price }} ₽</div>
-      <button
-        class="basket-pizza-item__remove-btn"
-        @click="removePizzaFromBasket"
-      >
-        <svg
-          width="16"
-          height="16"
-          viewBox="0 0 16 16"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
+      <div class="basket-pizza-item__remove-wrapper">
+        <button
+          class="basket-pizza-item__remove-btn"
+          @click="removePizzaFromBasket"
         >
-          <path
-            d="M11.7479 9.95572L9.49931 7.70712L11.7479 5.45852C12.1618 5.04459 12.1618 4.37339 11.7479 3.95946C11.334 3.54553 10.6628 3.54553 10.2488 3.95946L8.00024 6.20806L5.75164 3.95946C5.33771 3.54553 4.66651 3.54553 4.25258 3.95946C3.83865 4.37339 3.83865 5.04459 4.25258 5.45852L6.50118 7.70712L4.25258 9.95572C3.83865 10.3697 3.83865 11.0409 4.25258 11.4548C4.66651 11.8687 5.33772 11.8687 5.75164 11.4548L8.00024 9.20619L10.2488 11.4548C10.6628 11.8687 11.334 11.8687 11.7479 11.4548C12.1618 11.0409 12.1618 10.3697 11.7479 9.95572Z"
-            fill="#D0D0D0"
-          />
-        </svg>
-      </button>
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 16 16"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M11.7479 9.95572L9.49931 7.70712L11.7479 5.45852C12.1618 5.04459 12.1618 4.37339 11.7479 3.95946C11.334 3.54553 10.6628 3.54553 10.2488 3.95946L8.00024 6.20806L5.75164 3.95946C5.33771 3.54553 4.66651 3.54553 4.25258 3.95946C3.83865 4.37339 3.83865 5.04459 4.25258 5.45852L6.50118 7.70712L4.25258 9.95572C3.83865 10.3697 3.83865 11.0409 4.25258 11.4548C4.66651 11.8687 5.33772 11.8687 5.75164 11.4548L8.00024 9.20619L10.2488 11.4548C10.6628 11.8687 11.334 11.8687 11.7479 11.4548C12.1618 11.0409 12.1618 10.3697 11.7479 9.95572Z"
+              fill="#D0D0D0"
+            />
+          </svg>
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -116,6 +118,12 @@ export default Vue.extend({
     align-items: center;
   }
 
+  &__main-info {
+    -webkit-box-flex: 2;
+    -ms-flex: 2;
+    flex: 2;
+  }
+
   &__name {
     font-weight: 700;
     font-size: 22px;
@@ -131,6 +139,28 @@ export default Vue.extend({
   &__price {
     font-weight: 700;
     font-size: 22px;
+
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+  }
+
+  &__remove-wrapper {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: end;
+    -ms-flex-pack: end;
+    justify-content: flex-end;
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
   }
 
   &__remove-btn {
