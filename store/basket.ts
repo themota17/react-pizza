@@ -13,6 +13,14 @@ export const mutations: MutationTree<AnotherModuleState> = {
   addPizza(state, pizza: IBasketPizza): void {
     state.basket.push(pizza);
   },
+  cleanBasket(state): void {
+    state.basket = [];
+  },
+  removePizzaWithIdx(state, idx: number): void {
+    state.basket = state.basket.filter(
+      (basketPizza) => idx !== state.basket.indexOf(basketPizza)
+    );
+  },
 };
 
 export const getters: GetterTree<AnotherModuleState, RootState> = {

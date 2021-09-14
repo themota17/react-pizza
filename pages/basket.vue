@@ -35,7 +35,7 @@
             </svg>
             Корзина
           </h1>
-          <button class="basket-info__clear-btn">
+          <button class="basket-info__clean-btn" @click="cleanBasket">
             <svg
               width="20"
               height="20"
@@ -129,6 +129,11 @@ import IPizza from "@/interfaces/Pizza";
 import IBasketPizza from "@/interfaces/BasketPizza";
 
 export default Vue.extend({
+  methods: {
+    cleanBasket(): void {
+      this.$store.commit("basket/cleanBasket");
+    },
+  },
   computed: {
     basket(): Array<IBasketPizza> {
       return this.$store.getters["basket/getBasket"];
@@ -186,7 +191,7 @@ export default Vue.extend({
     }
   }
 
-  &__clear-btn {
+  &__clean-btn {
     border: none;
 
     color: #b6b6b6;

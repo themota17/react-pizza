@@ -19,7 +19,10 @@
         </div>
       </div>
       <div class="basket-pizza-item__price">{{ price }} ₽</div>
-      <button class="basket-pizza-item__remove-btn">
+      <button
+        class="basket-pizza-item__remove-btn"
+        @click="removePizzaFromBasket"
+      >
         <svg
           width="16"
           height="16"
@@ -46,6 +49,11 @@ import IBasketPizza from "@/interfaces/BasketPizza";
 export default Vue.extend({
   props: {
     idx: Number,
+  },
+  methods: {
+    removePizzaFromBasket(): void {
+      this.$store.commit("basket/removePizzaWithIdx", this.idx);
+    },
   },
   computed: {
     pizzaFromBasket(): IBasketPizza {
