@@ -10,9 +10,9 @@
       src="@/assets/images/empty-basket.png"
       alt="empty-basket"
     />
-    <a class="empty-basket__btn" href="/">
+    <nuxt-link class="empty-basket__btn" to="/">
       Вернуться назад
-    </a>
+    </nuxt-link>
   </section>
 </template>
 

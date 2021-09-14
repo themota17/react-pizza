@@ -1,7 +1,7 @@
 <template>
   <main class="basket">
     <div class="wrapper">
-      <section class="basket-info">
+      <section v-if="basket.length" class="basket-info">
         <header class="basket-info__header">
           <h1 class="basket-info__title">
             <svg
@@ -84,14 +84,19 @@
         </div>
         <div class="basket-info__data">
           <div class="basket-info__quantity">
-            Всего пицц: <span class="basket-info__quantity-span">3 шт.</span>
+            Всего пицц:
+            <span class="basket-info__quantity-span">
+              {{ basket.length }}
+              шт.
+            </span>
           </div>
           <div class="basket-info__amount">
-            Сумма заказа: <span class="basket-info__amount-span">900 ₽</span>
+            Сумма заказа:
+            <span class="basket-info__amount-span">{{ amount }} ₽</span>
           </div>
         </div>
         <div class="basket-info__moves">
-          <a class="basket-info__back" href="/">
+          <nuxt-link class="basket-info__back" to="/">
             <svg
               width="8"
               height="14"
@@ -108,11 +113,11 @@
               />
             </svg>
             Вернуться назад
-          </a>
+          </nuxt-link>
           <button class="basket-info__pay">Оплатить сейчас</button>
         </div>
       </section>
-      <the-empty-basket v-if="false" />
+      <the-empty-basket v-else />
     </div>
   </main>
 </template>
@@ -120,12 +125,27 @@
 <script lang="ts">
 import Vue from "vue";
 
+import IPizza from "@/interfaces/Pizza";
 import IBasketPizza from "@/interfaces/BasketPizza";
 
 export default Vue.extend({
   computed: {
     basket(): Array<IBasketPizza> {
-      return this.$store.getters.getBasket;
+      return this.$store.getters["basket/getBasket"];
+    },
+    amount(): number {
+      return this.basket.reduce((acc: number, curr: IBasketPizza) => {
+        const pizza: IPizza = this.$store.getters.getPizzas.find(
+          (pizza: IPizza) => pizza.id === curr.id
+        );
+
+        return (
+          acc +
+          pizza.price +
+          pizza.thickness[curr.thickness] +
+          pizza.sizes[curr.size]
+        );
+      }, 0);
     },
   },
 });
