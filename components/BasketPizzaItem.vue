@@ -10,9 +10,7 @@
       <div class="basket-pizza-item__main-info">
         <h2 class="basket-pizza-item__name">{{ pizza.name }}</h2>
         <div class="basket-pizza-item__data">
-          <span class="basket-pizza-item__type">
-            {{ pizzaFromBasket.thickness }},
-          </span>
+          <span class="basket-pizza-item__type"> {{ typeName }}, </span>
           <span class="basket-pizza-item__size">
             {{ pizzaFromBasket.size }} см.
           </span>
@@ -85,6 +83,16 @@ export default Vue.extend({
         pizza.thickness[this.pizzaFromBasket.thickness] +
         pizza.sizes[this.pizzaFromBasket.size]
       );
+    },
+    typeName(): string {
+      switch (this.pizzaFromBasket.thickness) {
+        case "thin":
+          return "тонкое тесто";
+        case "traditional":
+          return "толстое тесто";
+        default:
+          return "";
+      }
     },
   },
 });
