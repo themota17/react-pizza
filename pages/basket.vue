@@ -76,10 +76,11 @@
           </button>
         </header>
         <div class="basket-info__items-list">
-          <basket-pizza-item />
-          <basket-pizza-item />
-          <basket-pizza-item />
-          <basket-pizza-item />
+          <basket-pizza-item
+            v-for="(pizza, idx) of basket"
+            :key="idx"
+            :idx="idx"
+          />
         </div>
         <div class="basket-info__data">
           <div class="basket-info__quantity">
@@ -115,6 +116,20 @@
     </div>
   </main>
 </template>
+
+<script lang="ts">
+import Vue from "vue";
+
+import IBasketPizza from "@/interfaces/BasketPizza";
+
+export default Vue.extend({
+  computed: {
+    basket(): Array<IBasketPizza> {
+      return this.$store.getters.getBasket;
+    },
+  },
+});
+</script>
 
 <style lang="scss" scoped>
 .basket {

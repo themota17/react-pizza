@@ -63,6 +63,7 @@ import IPizza from "@/interfaces/Pizza";
 import IPizzaThickness from "@/interfaces/PizzaThickness";
 import IPizzaSizes from "@/interfaces/PizzaSizes";
 import IPizzaTypesName from "@/interfaces/PizzaTypesName";
+import IBasketPizza from "@/interfaces/BasketPizza";
 
 export default Vue.extend({
   props: {
@@ -88,8 +89,12 @@ export default Vue.extend({
     changeSize(size: keyof IPizzaSizes): void {
       this.selectedSize = size;
     },
-    addPizzaToBasket(e: Event): void {
-      this.$store.commit("basket/addPizza", { ...this.pizza });
+    addPizzaToBasket(): void {
+      this.$store.commit("basket/addPizza", {
+        id: this.pizza.id,
+        thickness: this.selectedThickness,
+        size: this.selectedSize,
+      } as IBasketPizza);
     },
   },
   computed: {

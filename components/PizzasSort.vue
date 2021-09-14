@@ -55,7 +55,7 @@ import IPizzaSortType from "@/interfaces/PizzaSortType";
 export default Vue.extend({
   props: {
     pizzaTypes: Array,
-    pizzaSortTypes: <PropOptions<IPizzaSortType[]>>{
+    pizzaSortTypes: <PropOptions<Array<IPizzaSortType>>>{
       required: true,
     },
   },

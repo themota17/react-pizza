@@ -8,15 +8,17 @@
     />
     <div class="basket-pizza-item__info">
       <div class="basket-pizza-item__main-info">
-        <h2 class="basket-pizza-item__name">Сырный цыпленок</h2>
+        <h2 class="basket-pizza-item__name">{{ pizza.name }}</h2>
         <div class="basket-pizza-item__data">
-          <span class="basket-pizza-item__type">толстое тесто,</span>
-          <span class="basket-pizza-item__size">26см.</span>
+          <span class="basket-pizza-item__type"
+            >{{ pizzaFromBasket.thickness }},</span
+          >
+          <span class="basket-pizza-item__size"
+            >{{ pizzaFromBasket.size }} см.</span
+          >
         </div>
       </div>
-      <div class="basket-pizza-item__price">
-        290 ₽
-      </div>
+      <div class="basket-pizza-item__price">{{ price }} ₽</div>
       <button class="basket-pizza-item__remove-btn">
         <svg
           width="16"
@@ -34,6 +36,47 @@
     </div>
   </div>
 </template>
+
+<script lang="ts">
+import Vue from "vue";
+
+import IPizza from "@/interfaces/Pizza";
+import IBasketPizza from "@/interfaces/BasketPizza";
+
+export default Vue.extend({
+  props: {
+    idx: Number,
+  },
+  computed: {
+    pizzaFromBasket(): IBasketPizza {
+      const basket: Array<IBasketPizza> = this.$store.getters.getBasket;
+
+      const pizzaFromBasket: IBasketPizza | undefined = basket.find(
+        (pizza: IBasketPizza) => pizza.id === basket.indexOf(pizza)
+      );
+
+      if (pizzaFromBasket) return pizzaFromBasket;
+      else return {} as IBasketPizza;
+    },
+    pizza(): IPizza {
+      const pizzaFromBasket: IBasketPizza = this.pizzaFromBasket;
+
+      return this.$store.getters.getPizzas.find(
+        (pizza: IPizza) => pizza.id === pizzaFromBasket.id
+      );
+    },
+    price(): number {
+      const pizza: IPizza = this.pizza;
+
+      return (
+        pizza.price +
+        pizza.thickness[this.pizzaFromBasket?.thickness] +
+        pizza.sizes[this.pizzaFromBasket.size]
+      );
+    },
+  },
+});
+</script>
 
 <style lang="scss" scoped>
 .basket-pizza-item {
