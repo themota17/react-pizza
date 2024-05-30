@@ -42,7 +42,7 @@ export default {
           },
           {
             id: 3,
-            name: "Креветки по азатски",
+            name: "Креветки по азиатски",
             img: "3.png",
             price: 290,
             popularity: 6,

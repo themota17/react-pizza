@@ -123,4 +123,16 @@
       margin-left: 13px;
     }
   }
+
+  @media screen and (max-width: 460px) {
+    .basket-info {
+      &__line {
+        display: none;
+      }
+
+      &__money {
+        display: none;
+      }
+    }
+  }
 </style>

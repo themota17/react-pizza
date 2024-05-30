@@ -84,6 +84,8 @@
 
 <style lang="scss" scoped>
   .home {
+    padding: 24px;
+
     &__top {
       margin-top: 40px;
 
@@ -108,6 +110,29 @@
 
       display: flex;
       justify-content: center;
+    }
+  }
+
+  @media screen and (max-width: 1200px) {
+    .home {
+      &__pizzas {
+        justify-content: space-around;
+      }
+    }
+  }
+
+  @media screen and (max-width: 576px) {
+    .home {
+      padding: 20px;
+
+      &__top {
+        align-items: center;
+        flex-direction: column;
+      }
+
+      &__title {
+        align-self: flex-start;
+      }
     }
   }
 </style>

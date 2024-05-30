@@ -70,7 +70,6 @@
       selectedSize: 0,
     }),
     mounted() {
-      // defaut selected from ui
       this.selectedThickness = "thin";
       this.selectedSize = 26;
     },
@@ -135,6 +134,8 @@
     &__img {
       position: relative;
       bottom: 0;
+
+      width: 100%;
 
       cursor: pointer;
 
@@ -276,6 +277,26 @@
       border-radius: 12px;
 
       margin-left: 8px;
+    }
+  }
+
+  @media screen and (max-width: 1200px) {
+    .pizza-card {
+      flex: 0 0 33.33%;
+
+      margin-right: 15px;
+
+      max-width: none;
+    }
+  }
+
+  @media screen and (max-width: 576px) {
+    .pizza-card {
+      flex: 0 0 100%;
+
+      max-width: 320px;
+
+      margin-right: 15px;
     }
   }
 </style>

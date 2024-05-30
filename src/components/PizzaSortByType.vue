@@ -88,4 +88,10 @@
       }
     }
   }
+
+  @media screen and (max-width: 576px) {
+    .pizza-sort-by-types {
+      width: 100%;
+    }
+  }
 </style>

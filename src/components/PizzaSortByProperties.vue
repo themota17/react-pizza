@@ -91,4 +91,10 @@
       cursor: pointer;
     }
   }
+
+  @media screen and (max-width: 576px) {
+    .pizza-sort-by-properties {
+      margin-top: 20px;
+    }
+  }
 </style>

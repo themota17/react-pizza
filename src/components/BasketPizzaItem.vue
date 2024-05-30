@@ -112,9 +112,7 @@
     }
 
     &__main-info {
-      -webkit-box-flex: 2;
-      -ms-flex: 2;
-      flex: 2;
+      flex: 5;
     }
 
     &__name {
@@ -135,12 +133,12 @@
 
       display: flex;
       justify-content: center;
-      flex: 1;
+      flex: 3;
     }
 
     &__remove-wrapper {
       display: flex;
-      justify-content: flex-end;
+      justify-content: center;
       flex: 1;
     }
 
@@ -158,6 +156,29 @@
       cursor: pointer;
 
       background: none;
+    }
+  }
+
+  @media screen and (max-width: 576px) {
+    .basket-pizza-item {
+      &__main-info {
+        flex: 10;
+      }
+
+      &__price {
+        flex: 4;
+
+        font-weight: 500;
+        font-size: 18px;
+      }
+    }
+  }
+
+  @media screen and (max-width: 400px) {
+    .basket-pizza-item {
+      img {
+        display: none;
+      }
     }
   }
 </style>

@@ -3,7 +3,7 @@
     <div class="wrapper">
       <section v-if="basket.length" class="basket-info">
         <header class="basket-info__header">
-          <h1 class="basket-info__title">
+          <div class="basket-info__header-left">
             <svg
               width="31"
               height="31"
@@ -33,8 +33,9 @@
                 stroke-linejoin="round"
               />
             </svg>
-            Корзина
-          </h1>
+            <h1 class="basket-info__title">Корзина</h1>
+          </div>
+
           <button class="basket-info__clean-btn" @click="cleanBasket">
             <svg
               width="20"
@@ -112,7 +113,7 @@
                 stroke-linejoin="round"
               />
             </svg>
-            Вернуться назад
+            <span class="basket-info__back-text">Вернуться назад</span>
           </router-link>
           <button class="basket-info__pay">Оплатить сейчас</button>
         </div>
@@ -131,7 +132,9 @@
       BasketPizzaItem,
       TheEmptyBasket,
     },
-
+    mounted() {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    },
     methods: {
       cleanBasket() {
         this.$store.commit("basket/cleanBasket");
@@ -167,7 +170,7 @@
   .basket-info {
     max-width: 820px;
 
-    margin: 95px auto 0 auto;
+    margin: 40px auto 0 auto;
 
     &__header {
       display: flex;
@@ -175,11 +178,17 @@
       align-items: center;
 
       padding: 0 0 30px 0;
+
+      &-left {
+        display: flex;
+      }
     }
 
     &__title {
       font-weight: 700;
       font-size: 32px;
+
+      margin-left: 8px;
 
       svg {
         color: black;
@@ -289,6 +298,22 @@
 
       margin-top: 75px;
       padding: 16px 32px;
+    }
+  }
+
+  @media screen and (max-width: 460px) {
+    .basket-info {
+      &__title {
+        display: none;
+      }
+
+      &__data {
+        display: block;
+      }
+
+      &__back-text {
+        display: none;
+      }
     }
   }
 </style>

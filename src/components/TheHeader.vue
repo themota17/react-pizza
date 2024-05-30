@@ -30,7 +30,15 @@
 
 <style lang="scss" scoped>
   .header {
-    padding: 35px 0px;
+    padding: 35px 24px;
+
+    height: 115px;
+
+    position: sticky;
+    top: 0;
+    z-index: 9999;
+
+    background-color: #ffffffe6;
 
     border-bottom: 1px solid #f1f1f1;
 
@@ -64,6 +72,24 @@
       font-size: 16px;
 
       color: #7b7b7b;
+    }
+  }
+
+  @media screen and (max-width: 576px) {
+    .header {
+      padding: 35px 20px;
+
+      &__subtitle {
+        display: none;
+      }
+    }
+  }
+
+  @media screen and (max-width: 460px) {
+    .header {
+      &__title {
+        margin-right: 8px;
+      }
     }
   }
 </style>
