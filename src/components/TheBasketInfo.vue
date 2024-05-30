@@ -1,5 +1,5 @@
 <template>
-  <nuxt-link
+  <router-link
     v-if="$route.path !== '/basket'"
     class="basket-info__link"
     to="/basket"
@@ -42,102 +42,85 @@
         </span>
       </div>
     </div>
-  </nuxt-link>
+  </router-link>
 </template>
 
-<script lang="ts">
-import Vue from "vue";
+<script>
+  export default {
+    data: () => ({
+      basketEmpty: true,
+    }),
+    computed: {
+      basket() {
+        return this.$store.getters["basket/getBasket"];
+      },
+      amount() {
+        return this.basket.reduce((acc, curr) => {
+          const pizza = this.$store.getters["app/getPizzas"].find(
+            (pizza) => pizza.id === curr.id
+          );
 
-import IPizza from "@/interfaces/Pizza";
-import IBasketPizza from "@/interfaces/BasketPizza";
-
-export default Vue.extend({
-  data: () => ({
-    basketEmpty: true,
-  }),
-  computed: {
-    basket(): Array<IBasketPizza> {
-      return this.$store.getters["basket/getBasket"];
+          return (
+            acc +
+            pizza.price +
+            pizza.thickness[curr.thickness] +
+            pizza.sizes[curr.size]
+          );
+        }, 0);
+      },
     },
-    amount(): number {
-      return this.basket.reduce((acc: number, curr: IBasketPizza) => {
-        const pizza: IPizza = this.$store.getters.getPizzas.find(
-          (pizza: IPizza) => pizza.id === curr.id
-        );
-
-        return (
-          acc +
-          pizza.price +
-          pizza.thickness[curr.thickness] +
-          pizza.sizes[curr.size]
-        );
-      }, 0);
-    },
-  },
-});
+  };
 </script>
 
 <style lang="scss" scoped>
-.basket-info {
-  padding: 12px 23px;
+  .basket-info {
+    padding: 12px 23px;
 
-  border-radius: 30px;
+    border-radius: 30px;
 
-  color: #fff;
-  background-color: #fe5f1e;
+    color: #fff;
+    background-color: #fe5f1e;
 
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-
-  cursor: pointer;
-
-  font-weight: bold;
-  font-size: 16px;
-
-  &__link {
-    text-decoration: none;
-  }
-
-  &__line {
-    width: 1px;
-    min-height: 25px;
-
-    margin-left: 13px;
-    margin-right: 13px;
-
-    border-radius: 100%;
-
-    background-color: #ffffff66;
-  }
-
-  &__money {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-  }
-
-  &__basket {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
     align-items: center;
 
-    svg {
-      width: 16px;
+    cursor: pointer;
+
+    font-weight: bold;
+    font-size: 16px;
+
+    &__link {
+      text-decoration: none;
+    }
+
+    &__line {
+      width: 1px;
+      min-height: 25px;
+
+      margin-left: 13px;
+      margin-right: 13px;
+
+      border-radius: 100%;
+
+      background-color: #ffffff66;
+    }
+
+    &__money {
+      display: flex;
+      align-items: center;
+    }
+
+    &__basket {
+      display: flex;
+      align-items: center;
+
+      svg {
+        width: 16px;
+      }
+    }
+
+    &__quantity {
+      margin-left: 13px;
     }
   }
-
-  &__quantity {
-    margin-left: 13px;
-  }
-}
 </style>

@@ -96,7 +96,7 @@
           </div>
         </div>
         <div class="basket-info__moves">
-          <nuxt-link class="basket-info__back" to="/">
+          <router-link class="basket-info__back" to="/">
             <svg
               width="8"
               height="14"
@@ -113,7 +113,7 @@
               />
             </svg>
             Вернуться назад
-          </nuxt-link>
+          </router-link>
           <button class="basket-info__pay">Оплатить сейчас</button>
         </div>
       </section>
@@ -122,208 +122,173 @@
   </main>
 </template>
 
-<script lang="ts">
-import Vue from "vue";
+<script>
+  import BasketPizzaItem from "../components/BasketPizzaItem.vue";
+  import TheEmptyBasket from "../components/TheEmptyBasket.vue";
 
-import IPizza from "@/interfaces/Pizza";
-import IBasketPizza from "@/interfaces/BasketPizza";
+  export default {
+    components: {
+      BasketPizzaItem,
+      TheEmptyBasket,
+    },
 
-export default Vue.extend({
-  methods: {
-    cleanBasket(): void {
-      this.$store.commit("basket/cleanBasket");
+    methods: {
+      cleanBasket() {
+        this.$store.commit("basket/cleanBasket");
+      },
     },
-  },
-  computed: {
-    basket(): Array<IBasketPizza> {
-      return this.$store.getters["basket/getBasket"];
-    },
-    amount(): number {
-      return this.basket.reduce((acc: number, curr: IBasketPizza) => {
-        const pizza: IPizza = this.$store.getters.getPizzas.find(
-          (pizza: IPizza) => pizza.id === curr.id
-        );
+    computed: {
+      basket() {
+        return this.$store.getters["basket/getBasket"];
+      },
+      amount() {
+        return this.basket.reduce((acc, curr) => {
+          const pizza = this.$store.getters["app/getPizzas"].find(
+            (pizza) => pizza.id === curr.id
+          );
 
-        return (
-          acc +
-          pizza.price +
-          pizza.thickness[curr.thickness] +
-          pizza.sizes[curr.size]
-        );
-      }, 0);
+          return (
+            acc +
+            pizza.price +
+            pizza.thickness[curr.thickness] +
+            pizza.sizes[curr.size]
+          );
+        }, 0);
+      },
     },
-  },
-});
+  };
 </script>
 
 <style lang="scss" scoped>
-.basket {
-  padding: 1em;
-}
-
-.basket-info {
-  max-width: 820px;
-
-  margin: 95px auto 0 auto;
-
-  &__header {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-pack: justify;
-    -ms-flex-pack: justify;
-    justify-content: space-between;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-
-    padding: 0 0 30px 0;
-  }
-
-  &__title {
-    font-weight: 700;
-    font-size: 32px;
-
-    svg {
-      color: black;
-
-      margin-right: 18px;
-    }
-  }
-
-  &__clean-btn {
-    border: none;
-
-    color: #b6b6b6;
-    background: none;
-
-    font-weight: 400;
-    font-size: 16px;
-
+  .basket {
     padding: 1em;
+  }
 
-    cursor: pointer;
+  .basket-info {
+    max-width: 820px;
 
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
-    justify-content: center;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
+    margin: 95px auto 0 auto;
 
-    svg {
-      margin-right: 15px;
+    &__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      padding: 0 0 30px 0;
     }
-  }
 
-  &__data {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-pack: justify;
-    -ms-flex-pack: justify;
-    justify-content: space-between;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-
-    margin-top: 10px;
-  }
-
-  &__quantity {
-    font-weight: 400;
-    font-size: 22px;
-
-    &-span {
+    &__title {
       font-weight: 700;
+      font-size: 32px;
+
+      svg {
+        color: black;
+
+        margin-right: 18px;
+      }
     }
-  }
 
-  &__amount {
-    font-weight: 400;
-    font-size: 22px;
+    &__clean-btn {
+      border: none;
 
-    &-span {
-      color: #fe5f1e;
+      color: #b6b6b6;
+      background: none;
+
+      font-weight: 400;
+      font-size: 16px;
+
+      padding: 1em;
+
+      cursor: pointer;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      svg {
+        margin-right: 15px;
+      }
+    }
+
+    &__data {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      margin-top: 10px;
+    }
+
+    &__quantity {
+      font-weight: 400;
+      font-size: 22px;
+
+      &-span {
+        font-weight: 700;
+      }
+    }
+
+    &__amount {
+      font-weight: 400;
+      font-size: 22px;
+
+      &-span {
+        color: #fe5f1e;
+
+        font-weight: 700;
+      }
+    }
+
+    &__moves {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    &__back {
+      color: #cacaca;
+      background: none;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      text-decoration: none;
+
+      border-radius: 30px;
+      border: 1px solid #cacaca;
+
+      font-weight: 400;
+      font-size: 16px;
+
+      margin-top: 75px;
+      padding: 16px 32px;
+
+      svg {
+        margin-right: 6px;
+      }
+    }
+
+    &__pay {
+      color: #fff;
+      background-color: #fe5f1e;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      text-decoration: none;
+
+      border-radius: 30px;
+      border: none;
+      outline: none;
 
       font-weight: 700;
+      font-size: 16px;
+
+      cursor: pointer;
+
+      margin-top: 75px;
+      padding: 16px 32px;
     }
   }
-
-  &__moves {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-pack: justify;
-    -ms-flex-pack: justify;
-    justify-content: space-between;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-  }
-
-  &__back {
-    color: #cacaca;
-    background: none;
-
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
-    justify-content: center;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-
-    text-decoration: none;
-
-    border-radius: 30px;
-    border: 1px solid #cacaca;
-
-    font-weight: 400;
-    font-size: 16px;
-
-    margin-top: 75px;
-    padding: 16px 32px;
-
-    svg {
-      margin-right: 6px;
-    }
-  }
-
-  &__pay {
-    color: #fff;
-    background-color: #fe5f1e;
-
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
-    justify-content: center;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-
-    text-decoration: none;
-
-    border-radius: 30px;
-    border: none;
-    outline: none;
-
-    font-weight: 700;
-    font-size: 16px;
-
-    cursor: pointer;
-
-    margin-top: 75px;
-    padding: 16px 32px;
-  }
-}
 </style>
